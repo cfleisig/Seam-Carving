@@ -85,13 +85,6 @@ void dynamic_seam(struct rgb_img *grad, double **best_arr){
     for (int i = width; i < width * height; i++){
         (*best_arr)[i] = (*best_arr)[find_min_above(i, *best_arr, width)] + (double)(grad->raster[i*3]);
     }
-
-    //print best_arr
-    /*for (int i = 0; i < 500; i++){
-        printf("%d\t", (int)(*best_arr)[i]);
-        if ((i+1) % width == 0){printf("\n\n");}
-    }
-    printf("\n"); */
 }
 
 void recover_path(double *best, int height, int width, int **path){    
@@ -139,34 +132,7 @@ void remove_seam(struct rgb_img *src, struct rgb_img **dest, int *path){
 }
 
 int main(){
-    /* struct rgb_img *im;
-    struct rgb_img *cur_im;
-    struct rgb_img *grad;
-    double *best;
-    int *path;
-
-    read_in_img(&im, "HJoceanSmall.bin");
-    
-    for(int i = 0; i < 200; i++){
-        printf("i = %d\n", i);
-        calc_energy(im,  &grad);
-        dynamic_seam(grad, &best);
-        recover_path(best, grad->height, grad->width, &path);
-        remove_seam(im, &cur_im, path);
-
-        char filename[200];
-        sprintf(filename, "img%d.bin", i);
-        write_img(cur_im, filename);
-
-
-        destroy_image(im);
-        destroy_image(grad);
-        free(best);
-        free(path);
-        im = cur_im;
-    }
-    destroy_image(im); */
-    
+    //Run a test for demonstration purposes   
     struct rgb_img *im;
     struct rgb_img *new_im;
     struct rgb_img *dest_im;
@@ -177,28 +143,12 @@ int main(){
     read_in_img(&im, "HJoceanSmall.bin"); //meric_gerler.bin -> struct rgb_img *img and puts in memory stack
     printf("height: %zu\n", im -> height);
     printf("width: %zu\n", im -> width);
-    //print_rgb(im);
     calc_energy(im, &new_im);
     printf("\n");
-    //print_grad(new_im);
-    //printf("\n");
     dynamic_seam(new_im, &mem);
     printf("%d, %d\n\n", (int)mem[im -> width + 497], (int)mem[im -> width + 498]);
     recover_path(mem, 5, 6, &path);
-    //for(int i = 0; i < im -> height; i++){ printf("%d\t", path[i]);}
-    //printf("\n");
     remove_seam(im, &dest_im, path);
-    //printf("\n");
-    //print_rgb(dest_im);
-    //printf("\n");
-    
-    /*float factor[5] = {0.4, 0.6, 0.8, 1.2, 1.4}; //factors by which to brighten or darken rgb (>1 brightens, <1 darkens)
-
-    //loop to create 5 different images
-    for(int i = 0; i < 5; i++){
-        sprintf(filename, "img%d.bin", i); //makes the filename with number
-        brighten_im(im, &new_im, filename, factor[i]);
-    }*/
 
     return 0;
 }
