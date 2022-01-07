@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import ImageTk, Image
 
 def write_image(image, filename):
     height = image.height
@@ -35,29 +35,16 @@ def read_image(filename):
 
     return image
 
-#Write a png image to bin
-image = Image.open("6x5.png")
-write_image(image, "6x5.bin")
-image = Image.open("3x4.png")
-write_image(image, "3x4.bin")
+#Write a .png, .jpeg or image files to .bin file
+image = Image.open("meric_gertler.jpeg")
+write_image(image, "meric_gertler.bin")
 
-#Read image from a bin file, save it to png
-#im2 = read_image("a.bin")
-#im3 = read_image("6x5_grad.bin")
+# Read image from a bin file, save it to png
+image = read_image("carved_meric_gertler.bin")
+image.save("carved_meric_gertler.png")
 
-
-
-
-
-
-
-
-#meric_gertler.jpeg -> meric_gertler.bin
-#image = Image.open("meric_gertler.jpeg")
-#write_image(image, "meric_gertler.bin")
-
-
-#Write img(#).bin -> img(#).png, for 0 <= (#) < 5
-for i in range(200):
-   image = read_image("img%d.bin" % i)
-   image.save("img%d.png" % i)
+# Write img(#).bin -> img(#).png, for 0 <= (#) < 200
+# Use this is you want to carve out a seam that is 200 px wide 
+# for i in range(200):
+#   image = read_image("img%d.bin" % i)
+#   image.save("img%d.png" % i)

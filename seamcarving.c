@@ -137,18 +137,19 @@ int main(){
     struct rgb_img *new_im;
     struct rgb_img *dest_im;
     double *mem;
-    char filename[200];
     int *path;
 
-    read_in_img(&im, "HJoceanSmall.bin"); //meric_gerler.bin -> struct rgb_img *img and puts in memory stack
-    printf("height: %zu\n", im -> height);
-    printf("width: %zu\n", im -> width);
+    read_in_img(&im, "meric_gertler.bin"); //meric_gerler.bin -> struct rgb_img *img and puts in memory stack
     calc_energy(im, &new_im);
-    printf("\n");
     dynamic_seam(new_im, &mem);
-    printf("%d, %d\n\n", (int)mem[im -> width + 497], (int)mem[im -> width + 498]);
-    recover_path(mem, 5, 6, &path);
+
+    int width = im -> width;
+    int height = im -> height;
+
+    recover_path(mem, height, width, &path);
     remove_seam(im, &dest_im, path);
+    write_img(dest_im, "carved_meric_gertler.bin");
+    printf("Done!\n");
 
     return 0;
 }
